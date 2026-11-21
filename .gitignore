@@ -9,3 +9,6 @@ env/
 # Cache do Python
 __pycache__/
 *.pyc
+
+# Arquivos de contexto local para IA
+.context/
