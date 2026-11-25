@@ -1,0 +1,12 @@
+.git/
+.gitignore
+.env
+.env.example
+.venv/
+venv/
+env/
+.context/
+__pycache__/
+*.pyc
+*.tar
+README.md

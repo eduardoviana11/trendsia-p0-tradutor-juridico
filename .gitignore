@@ -12,3 +12,7 @@ __pycache__/
 
 # Arquivos de contexto local para IA
 .context/
+
+# Imagens Docker exportadas
+*.tar
+
