@@ -24,8 +24,10 @@ Arquivos da versão básica:
 
 ```text
 trendsia-p0-tradutor-juridico/
+├── .dockerignore     # Exclusões do contexto de build Docker
 ├── .env.example      # Modelo de variáveis de ambiente (sem dados sensíveis)
-├── .gitignore        # Exclusões do Git (.env, .venv/, cache Python)
+├── .gitignore        # Exclusões do Git (.env, .venv/, cache Python, *.tar)
+├── Dockerfile        # Imagem leve Python 3.12.7 para execução na plataforma
 ├── main.py           # Núcleo funcional da versão básica (CLI + chamada REST)
 ├── README.md         # Documentação de instalação, configuração e uso
 └── requirements.txt  # Dependências Python com versões fixadas
@@ -125,6 +127,29 @@ O risco principal é pagar essa multa caso desista do serviço antes do término
 
 Aviso: Esta tradução tem caráter meramente informacional e preliminar e não substitui orientação jurídica profissional.
 ```
+
+### 6.1. Execução via Docker na plataforma institucional (`llm-network`)
+
+Para executar a aplicação dentro da plataforma de containers conectada ao LLM institucional (`https://llm-internal.softex:9001`):
+
+1. **Gerar a imagem e exportar o arquivo `.tar`** (nomeando a imagem com seu identificador sem caracteres especiais, conforme o guia da plataforma):
+
+   ```bash
+   docker build --platform linux/amd64 -t eduardovianasilva11gmailcom:latest .
+   docker save --output eduardovianasilva11gmailcom.tar eduardovianasilva11gmailcom:latest
+   ```
+
+2. **Configurar no dashboard da plataforma:**
+   - **Upload:** envie o arquivo `.tar` gerado (verificando que a imagem está abaixo de `1024MB`).
+   - **Portas internas:** deixe em branco (aplicação CLI, sem servidor HTTP/web).
+   - **Variáveis de ambiente** (uma por linha):
+     ```env
+     OLLAMA_HOST=https://llm-internal.softex:9001
+     OLLAMA_MODEL=qwen3.5
+     LLM_VERIFY_SSL=false
+     ```
+     *(Opcional)* Adicione `TEXTO_JURIDICO=<cláusula fictícia>` para testar outro trecho além da cláusula padrão definida no `Dockerfile`.
+   - **Iniciar e Logs:** clique em **Iniciar** (o container será conectado à rede `llm-network`) e acompanhe a tradução gerada na aba **Logs**.
 
 ---
 
