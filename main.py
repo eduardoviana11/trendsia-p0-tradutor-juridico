@@ -30,7 +30,7 @@ def main() -> None:
     load_dotenv()
 
     ollama_host = os.getenv("OLLAMA_HOST", "http://localhost:11434").rstrip("/")
-    ollama_model = os.getenv("OLLAMA_MODEL", "qwen3.5")
+    ollama_model = os.getenv("OLLAMA_MODEL", "qwen3.5:9b-q4_K_M")
     verify_ssl = os.getenv("LLM_VERIFY_SSL", "true").strip().lower() == "true"
 
     # Suprime avisos apenas quando o servidor usa certificado SSL autogerado.

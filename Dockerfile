@@ -4,7 +4,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PYTHONIOENCODING=utf-8 \
     OLLAMA_HOST=https://llm-internal.softex:9001 \
-    OLLAMA_MODEL=qwen3.5 \
+    OLLAMA_MODEL=qwen3.5:9b-q4_K_M \
     LLM_VERIFY_SSL=false
 
 WORKDIR /app

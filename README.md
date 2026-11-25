@@ -90,7 +90,7 @@ Tecnologias utilizadas:
    | Variável | Descrição | Exemplo |
    | :--- | :--- | :--- |
    | `OLLAMA_HOST` | URL base do servidor Ollama. Use `http://localhost:11434` para Ollama local ou `https://llm-internal.softex:9001` no ambiente institucional (rede interna `llm-network`). | `http://localhost:11434` |
-   | `OLLAMA_MODEL` | Tag exata do modelo instalado no servidor Ollama em uso. | `qwen3.5` |
+   | `OLLAMA_MODEL` | Tag exata do modelo instalado no servidor Ollama em uso. | `qwen3.5:9b-q4_K_M` |
    | `LLM_VERIFY_SSL` | Define se o certificado SSL será validado. Use `false` para o servidor institucional (certificado SSL autogerado) e `true` quando houver certificado válido. | `false` |
 
 ---
@@ -117,13 +117,13 @@ CLÁUSULA 8ª — DA RESCISÃO ANTECIPADA: O CONTRATANTE poderá resilir unilate
 
 *(seguido de `Enter` em linha vazia)*
 
-**Saída ilustrativa esperada:**
+**Saída obtida na validação real (`qwen3.5:9b-q4_K_M`):**
 
 ```text
 --- Tradução Simplificada ---
-Você pode cancelar o contrato antes do fim se avisar por escrito com pelo menos 30 dias de antecedência.
-Ao cancelar antes do prazo, haverá uma multa de 20% sobre o valor das parcelas que ainda faltavam pagar.
-O risco principal é pagar essa multa caso desista do serviço antes do término previsto.
+Você pode cancelar o contrato sozinho, mas precisa avisar por escrito com antecedência mínima de 30 dias.
+Ao fazer isso, pagará uma multa de 20% sobre todo o valor das parcelas futuras que ainda estavam para vencer.
+Ou seja: é possível sair do negócio, mas pagando um custo proporcional ao quanto restava a ser quitado após a rescisão.
 
 Aviso: Esta tradução tem caráter meramente informacional e preliminar e não substitui orientação jurídica profissional.
 ```
@@ -141,15 +141,15 @@ Para executar a aplicação dentro da plataforma de containers conectada ao LLM 
 
 2. **Configurar no dashboard da plataforma:**
    - **Upload:** envie o arquivo `.tar` gerado (verificando que a imagem está abaixo de `1024MB`).
-   - **Portas internas:** deixe em branco (aplicação CLI, sem servidor HTTP/web).
+   - **Portas internas:** informe uma porta (ex.: `8000`) caso o formulário exija preenchimento obrigatório (esta versão é CLI e não abre servidor web).
    - **Variáveis de ambiente** (uma por linha):
      ```env
      OLLAMA_HOST=https://llm-internal.softex:9001
-     OLLAMA_MODEL=qwen3.5
+     OLLAMA_MODEL=qwen3.5:9b-q4_K_M
      LLM_VERIFY_SSL=false
      ```
      *(Opcional)* Adicione `TEXTO_JURIDICO=<cláusula fictícia>` para testar outro trecho além da cláusula padrão definida no `Dockerfile`.
-   - **Iniciar e Logs:** clique em **Iniciar** (o container será conectado à rede `llm-network`) e acompanhe a tradução gerada na aba **Logs**.
+   - **Iniciar e Logs:** clique em **Iniciar** (o container será conectado à rede `llm-network`) e acompanhe a tradução gerada na aba **Logs**. Note que o servidor LLM institucional pode levar de 1 a 2 minutos para ficar disponível após a inicialização.
 
 ---
 
